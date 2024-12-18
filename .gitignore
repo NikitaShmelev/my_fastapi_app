@@ -1,0 +1,62 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# pipenv and poetry
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# macOS files
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.sublime-project
+*.sublime-workspace
+
+# Build and Dist directories
+build/
+dist/
+*.egg-info/
+
+# Uvicorn and FastAPI logs
+*.log
+logs/
+
+# Dependencies
+__pypackages__/
+
+# Static and media files (optional)
+static/
+media/
+
+# Pytest files
+pytest_cache/
+.tox/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Python Package Management
+*.lock
+
