@@ -10,3 +10,8 @@ gcloud run deploy fastapi-app \
     --region REGION \
     --allow-unauthenticated
 ```
+
+
+```bash
+uvicorn app.main:app --reload
+```
