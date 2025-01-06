@@ -5,13 +5,12 @@ from sqlalchemy.exc import IntegrityError
 from app.models import PostModel
 from app.database import get_session
 from app.schemas import PostCreate, PostResponse
+
 router = APIRouter(
     prefix="/posts",
     tags=["posts"],
     responses={404: {"description": "Not found"}},
 )
-
-
 
 
 @router.get("/")
@@ -31,7 +30,6 @@ async def get_post(post_id: str, session: Session = Depends(get_session)):
     return item
 
 
-
 @router.post("/", response_model=PostResponse)
 async def create_post(post: PostCreate, session: Session = Depends(get_session)):
     new_post = PostModel(
@@ -47,6 +45,8 @@ async def create_post(post: PostCreate, session: Session = Depends(get_session))
         await session.refresh(new_post)  # Get the latest data including default fields
     except IntegrityError:
         await session.rollback()
-        raise HTTPException(status_code=400, detail="Error creating post. Ensure user exists.")
+        raise HTTPException(
+            status_code=400, detail="Error creating post. Ensure user exists."
+        )
 
     return new_post

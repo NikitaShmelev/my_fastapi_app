@@ -6,12 +6,12 @@ from app.models import UserModel
 from app.database import get_session
 from app.schemas import UserCreate, UserResponse
 from sqlalchemy.exc import IntegrityError
+
 router = APIRouter(
     prefix="/users",
     tags=["users"],
     responses={404: {"description": "Not found"}},
 )
-
 
 
 @router.get("/")

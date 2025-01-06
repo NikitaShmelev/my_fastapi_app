@@ -26,4 +26,3 @@ async def get_post(id: str, session: Session = Depends(get_session)):
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     return item
-

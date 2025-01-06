@@ -6,6 +6,10 @@ from .subject import SubjectModel
 from .professors import ProfessorModels
 
 __all__ = [
-    "UserModel", "Base", "PostModel",
-    "StudentModel", "SubjectModel", "ProfessorModels"
+    "UserModel",
+    "Base",
+    "PostModel",
+    "StudentModel",
+    "SubjectModel",
+    "ProfessorModels",
 ]
