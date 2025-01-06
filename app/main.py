@@ -3,7 +3,7 @@ import os
 from fastapi import FastAPI
 
 from app.internal import admin
-from app.routers import posts, users
+from app.routers import posts, users, students
 
 from app.models import Base
 from app.database import engine
@@ -14,6 +14,7 @@ app = FastAPI()
 
 app.include_router(users.router)
 app.include_router(posts.router)
+app.include_router(students.router)
 app.include_router(
     admin.router,
     prefix="/admin",
@@ -27,6 +28,9 @@ async def setup_database():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
+    return {"created database with following tables":
+                [table for table in Base.metadata.tables]
+            }
 
 
 @app.get("/")
@@ -36,4 +40,4 @@ async def root():
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8080))
-    uvicorn.run("main:app", host="0.0.0.0", port=port)
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)

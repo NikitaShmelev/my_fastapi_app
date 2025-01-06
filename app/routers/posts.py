@@ -6,7 +6,7 @@ from app.models import PostModel
 from app.database import get_session
 from app.schemas import PostCreate, PostResponse
 router = APIRouter(
-    prefix="/postsзш",
+    prefix="/posts",
     tags=["posts"],
     responses={404: {"description": "Not found"}},
 )
