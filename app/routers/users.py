@@ -15,22 +15,16 @@ router = APIRouter(
 
 
 @router.get("/")
-async def get_users(session: Session = Depends(get_session)):
+def get_users(session: Session = Depends(get_session)):
     query = select(UserModel)
-    result = await session.execute(query)
+    result = session.execute(query)
     users = result.scalars().all()
     return users
 
 
-# @router.get("/users/me", tags=["users"])
-# async def read_user_me():
-#     # TODO
-#     return {"username": "fakecurrentuser"}
-
-
 @router.get("/{user_id}")
-async def get_user(user_id: int, session: Session = Depends(get_session)):
-    result = await session.execute(select(UserModel).filter(UserModel.id == user_id))
+def get_user(user_id: int, session: Session = Depends(get_session)):
+    result = session.execute(select(UserModel).filter(UserModel.id == user_id))
     user = result.scalars().first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -38,7 +32,7 @@ async def get_user(user_id: int, session: Session = Depends(get_session)):
 
 
 @router.post("/", response_model=UserResponse)
-async def create_user(user_create: UserCreate, session: Session = Depends(get_session)):
+def create_user(user_create: UserCreate, session: Session = Depends(get_session)):
     new_user = UserModel(
         username=user_create.username,
         email=user_create.email,
@@ -47,10 +41,10 @@ async def create_user(user_create: UserCreate, session: Session = Depends(get_se
     session.add(new_user)
 
     try:
-        await session.commit()
-        await session.refresh(new_user)
+        session.commit()
+        session.refresh(new_user)
     except IntegrityError:
-        await session.rollback()
+        session.rollback()
         raise HTTPException(status_code=400, detail="Email already registered")
 
     return new_user
