@@ -4,7 +4,7 @@ import os
 from fastapi import FastAPI, HTTPException, Depends
 import httpx
 from app.internal import admin
-from app.routers import posts, users, students, utils, professors, academic_directions
+from app.routers import students, utils, professors, academic_directions
 
 from app.models import Base
 from app.database import engine

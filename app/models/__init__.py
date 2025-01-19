@@ -1,20 +1,18 @@
 from .base import Base
-from .users import UserModel
-from .items import PostModel
 from .students import StudentModel
-from .subject import SubjectModel
+from .subject import SubjectModel, Subjects
 from .professors import ProfessorModel
-from .academic_directions import AcademicDirectionModel
+from .academic_directions import AcademicDirectionModel, Directions
 from .students_directions import students_directions
 
 
 __all__ = [
-    "UserModel",
     "Base",
-    "PostModel",
     "StudentModel",
     "SubjectModel",
     "ProfessorModel",
     "AcademicDirectionModel",
     "students_directions",
+    "Directions",
+    "Subjects",
 ]
