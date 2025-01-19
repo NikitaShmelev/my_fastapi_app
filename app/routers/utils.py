@@ -11,12 +11,14 @@ from faker import Faker
 fake = Faker()
 router = APIRouter(
     prefix="/setup",
-    # tags=["utils"],
+    tags=["utils"],
 )
 
 
 def create_academic_directions(session: Session):
-    for direction in Directions():
+
+    for direction in Directions.choices:
+
         direction_obj = AcademicDirectionModel(name=direction)
         session.add(direction_obj)
 
@@ -30,6 +32,7 @@ def create_subjects(session: Session):
     session.commit()
 
 def assign_professors_to_academic_directions(session: Session):
+
     professors = session.execute(select(ProfessorModel)).scalars().all()
     directions = session.execute(select(AcademicDirectionModel)).scalars().all()
 
@@ -58,6 +61,7 @@ def create_professors(session: Session, count: int):
 
 
 def add_directions_to_students(session: Session):
+
     students = session.execute(select(StudentModel)).scalars().all()
     directions = session.execute(select(AcademicDirectionModel)).scalars().all()
 
@@ -69,6 +73,7 @@ def add_directions_to_students(session: Session):
 
 @router.get("/populate_data")
 def populate_data(session: Session = Depends(get_session)):
+
     create_academic_directions(session)
 
 
@@ -76,7 +81,9 @@ def populate_data(session: Session = Depends(get_session)):
     create_students(session=session, count=50)
     create_professors(session=session, count=7)
 
+
     add_directions_to_students(session=session)
+
     assign_professors_to_academic_directions(session=session)
 
     return {"success": True}

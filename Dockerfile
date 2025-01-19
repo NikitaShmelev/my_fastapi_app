@@ -1,20 +1,19 @@
-# Use the official Python image
-FROM python:3.11
+# Start with an appropriate Python image
+FROM python:3.11-slim
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1 \
-    POETRY_VERSION=1.7.1
-
-# Set work directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy requirements and code
-COPY ./ /app
+# Copy only relevant files (e.g., requirements.txt and application code)
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
 
-# Install dependencies
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Set environment variables
+ENV PORT=8080
 
-# Command to run the app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Expose the required port
+EXPOSE 8080
 
+# Run the app using uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]

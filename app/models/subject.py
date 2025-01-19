@@ -29,7 +29,7 @@ class SubjectModel(Base):
     __tablename__: str = "subjects"
     name: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    subjects = relationship(
+    academic_directions = relationship(
         "AcademicDirectionModel",
         secondary=direction_subjects_per_year,
         back_populates="subjects"
